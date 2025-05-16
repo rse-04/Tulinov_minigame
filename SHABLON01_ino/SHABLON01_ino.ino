@@ -1,3 +1,17 @@
+// 2- кнопка
+int k1=2;
+// 3- кнопка
+int k2=3;
+// 4- индикатор дио
+int indDio=4;
+// 5- индикатор clk
+int indClk=5;
+// 6- звук
+int zvuk=6;
+// 7- матреца
+int matrix=7;
+
+
 
 //Маркеры памяти
 //void - пустота - космос - ничего - не использует память
@@ -8,21 +22,20 @@
 //------() - круглые скобки (SHIFT+9, SHIFT+0) настройки
 //------{} - фигурные скобки (SHIFT+Х, SHIFT+Ъ) Начало и конец
 //Сложных приказов
-#define BUTTON_PIN 7
 int lastButtonState;
 //-----------------------------------------
 #include <TM1637.h>
 
 // Pin 2 — > CLK, Pin 3 — > DIO
-TM1637 tm1637(2, 3);
+TM1637 tm1637(indDio, indClk);
 tm1637.init();  // инициализируем библиотеку
   tm1637.setBrightness(5);  // устанавливаем яркость дисплея
 //----------------------------------------------------------
 // способности 
 // проверить нажатие кнопки 
-void knop (){
+void knop1 (){
   // прочитать значение кнопки
-    int buttonState = digitalRead(BUTTON_PIN);
+    int buttonState = digitalRead(k1);
     if (lastButtonState != buttonState) {  // состояние изменилось
         delay(50);  // время дребезга
         if (buttonState == LOW)
@@ -30,6 +43,19 @@ void knop (){
         else
             Serial.println("Отпускание кнопки");
         lastButtonState = buttonState;
+    }
+}
+int lastButtonState2=0;
+void knop2 (){
+  // прочитать значение кнопки
+    int buttonState = digitalRead(k2);
+    if (lastButtonState2 != buttonState) {  // состояние изменилось
+        delay(50);  // время дребезга
+        if (buttonState == LOW)
+            Serial.println("Нажатие кнопки");
+        else
+            Serial.println("Отпускание кнопки");
+        lastButtonState2 = buttonState;
     }
 }
 // зажечь светодиод  
@@ -49,7 +75,7 @@ void svet1 () {
 
 }
 // потушать светодиод 
-void svet0 () {
+void svet (int a) {
   digitalWrite(13, LOW);  // выключаем светодиод [1](https://arduino.ru/tutorials/blink)
   delay(1000);  // ждём секунду [1](https://arduino.ru/tutorials/blink)
 }
@@ -68,8 +94,8 @@ void ecran () {
 
 void setup() {       //-слэш - разрез /слэш в гору \слэш с горы
   Serial.begin(9600);
-    pinMode(BUTTON_PIN, INPUT_PULLUP);  // включить внутренний подтягивающий резистор
-    lastButtonState = digitalRead(BUTTON_PIN);
+    pinMode(k1, INPUT_PULLUP);  // включить внутренний подтягивающий резистор
+    lastButtonState = digitalRead(k1);
   //-------------------------------------------------------------
   pinMode(13, OUTPUT);  // Инициализируем цифровой вход/выход в режиме выхода. [1](https://arduino.ru/tutorials/blink)
   // Выход 13 на большинстве плат Arduino подключен к светодиоду на плате. [1](https://arduino.ru/tutorials/blink)
@@ -90,9 +116,16 @@ void loop(){
 
   // 1. Игра
   if (s==2){
-    //зажечь пиксель 1 или 2 с разной задержкой
-
-    //проверяем нажатие, начисляем очки, меняем состояни 
+    // int comb={1,2,1,2}
+     int comb={1,2,1,2}
+    // //зажечь пиксель 1 или 2 с разной задержкой
+    // for (a=1;a<4; a++){
+     for (a=1;a<4; a++) {
+    // svet(comb[a]))
+      svet (comb[a]))
+    // }
+     }
+    // //проверяем нажатие, начисляем очки, меняем состояни 
 
   }
   
